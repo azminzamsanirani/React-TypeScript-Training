@@ -1,0 +1,51 @@
+/* Register.css */
+
+.RegisterContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.RegisterBox {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #00718f;
+}
+
+.RegisterHeader {
+    background-color: #00718f;
+    color: #fff;
+    padding: 10px;
+    margin: -10px;
+}
+
+.FormContainer {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-right: 30px;
+}
+
+.FormField {
+    margin-top: 20px;
+}
+
+.FormField input {
+    width: 150px;
+}
+
+.RegisterButton {
+    margin: 20px 50px 0 50px;
+    background-color: #00718f;
+    color: #fff;
+    border: none;
+    padding: 3px 10px;
+    border-radius: 5px;
+}
+
+.RegisterErrorMessage {
+    color: red;
+    font-size: 12px;
+}

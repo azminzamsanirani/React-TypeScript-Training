@@ -1,0 +1,53 @@
+/* Login.css */
+
+.LoginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+  }
+  
+  .LoginBox {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #00718f;
+  }
+  
+  .LoginHeader {
+    background-color: #00718f;
+    color: #fff;
+    padding: 10px;
+    margin: -10px;
+  }
+  
+  .LoginForm {
+    margin-top: 20px;
+    padding: 10px 0;
+  }
+  
+  .InputField {
+    width: 150px;
+  }
+  
+  .ButtonContainer {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+  }
+  
+  .ActionButton {
+    background-color: #00718f;
+    color: #fff;
+    border: none;
+    padding: 3px 10px;
+    border-radius: 5px;
+    margin: 0 50px;
+  }
+
+  .LoginErrorMessage {
+    color: red;
+    font-size: 12px;
+    margin: 0;
+  }
+  
+  

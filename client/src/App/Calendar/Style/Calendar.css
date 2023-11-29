@@ -1,0 +1,179 @@
+/* Calendar.css */
+.CalendarContainer {
+    font-family: 'Arial', sans-serif;
+    padding: 10px;
+    height: 80vh;
+}
+
+.CalendarSelector {
+    display: inline-block;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.CalendarDropdown {
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-right: 20px;
+}
+
+.CalendarGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.CalendarHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #00718f;
+    color: white;
+    height: 30px;
+}
+
+.CalendarCell {
+    box-sizing: border-box;
+    width: 100%;
+    height: 120px;
+    border: 1px solid gray;
+    padding: 5px;
+    font-size: 30px;
+    font-weight: bolder;
+    position: relative;
+    overflow: hidden;
+}
+
+.CalendarCell.weekend {
+    color: red;
+}
+
+.NoteIcon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #d3d3d3;
+    cursor: pointer;
+}
+
+.CalendarCell.empty {
+    border: none;
+}
+
+.PopupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.Popup {
+    background: #00718f;
+    padding: 20px;
+    width: 700px;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.PopupHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+}
+
+.PopupHeader span {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.EventContainer {
+    margin-top: 10px;
+    max-height: 70px;
+    overflow-y: auto;
+}
+
+.Event {
+    border-radius: 5px;
+    padding: 5px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: normal;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.Event.high {
+    background-color: #BE0000;
+}
+
+.Event.medium {
+    background-color: #006E19;
+}
+
+.Event.low {
+    background-color: #CDBB00;
+}
+
+.TitleInput,
+.NotesTextArea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.NotesTextArea {
+    height: 180px;
+}
+
+.PriorityLabel {
+    display: flex;
+    align-items: center;
+}
+
+.PriorityLabel h3 {
+    margin-right: 10px;
+}
+
+.PrioritySelect {
+    padding: 2px;
+    border: 1px solid #ccc;
+}
+
+
+.UpdateEventButton,
+.CancelEventButton {
+    margin: 20px 50px 0 50px;
+    background-color: #00718f;
+    color: #fff;
+    border: 2px solid white;
+    padding: 3px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.CalendarButtonContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.DeletePopup {
+    background: #00718f;
+    padding: 20px;
+    width: 300px;
+    border-radius: 5px;
+    color: #fff;
+    border: 10px solid #353A3B;
+}
+
+.DeletePopupHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,0 +1,98 @@
+/* DropDownFilter.css */
+.DropdownContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.Asset {
+    display: flex;
+}
+
+.AssetInfo {
+    display: flex;
+    justify-content: space-around;
+    margin-right: 10px;
+    flex-basis: 25% !important;
+}
+
+.AssetData {
+    display: flex;
+    justify-content: space-around;
+    margin-left: 10px;
+    flex-basis: 77% !important;
+}
+
+.AssetInfo,
+.AssetData {
+    flex: 1;
+    text-align: center;
+    background-color: #D3D3D3;
+    height: 150px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.AssetName {
+    background-color: #00718f;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.AssetImageContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    position: relative;
+}
+
+.AssetImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    margin: 10px;
+}
+
+.AssetImageIcon {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: #494949;
+}
+
+.AssetUtilization {
+    width: 10%;
+    background-color: #E2AF00;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: 25px;
+    color: white;
+    flex-direction: column;
+}
+
+.AssetChart {
+    width: 90%;
+}
+
+.PaginationContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.PaginationComponent {
+    display: flex;
+    gap: 20px;
+    list-style-type: none;
+    cursor: pointer;
+}
+
+.LegendContainer {
+    display: flex;
+    gap: 30px;
+    flex-direction: row-reverse;
+}

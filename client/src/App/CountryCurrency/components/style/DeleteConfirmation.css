@@ -1,0 +1,38 @@
+/* DeleteConfirmation.css */
+
+.DeleteConfirmation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #00718f;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 250px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .DeleteConfirmation p {
+    margin-bottom: 10px;
+    color: white;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .DeleteConfirmation button {
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #00718f;
+    border: 2px solid white;
+    color: white;
+  }
+  

@@ -1,0 +1,38 @@
+/* NewCountryForm.css */
+
+.NewCountryFormContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 500px;
+    margin: 0 auto;
+}
+
+.InputForm {
+    width: 100px;
+    /* margin: 0px 100px 0px 10px; */
+    margin-left: 10px;
+}
+
+.AddButton {
+    background-color: #00718f;
+    color: white;
+    width: 70px;
+    border-radius: 5px;
+    margin-left: 30px;
+    border: none;
+    padding: 3px;
+}
+
+.ErrorMessage {
+    color: red;
+    margin: 0;
+    font-size: 12px;
+}
+
+.WarningMessage {
+    display: flex;
+    position: absolute; 
+    z-index: -1;
+}
