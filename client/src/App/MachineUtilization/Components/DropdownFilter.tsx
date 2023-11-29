@@ -733,11 +733,7 @@ const DropdownFilter: React.FC = () => {
                       />
                     </div>
                     <div className="AssetImage">
-                      {asset.asset_image_path}
-                      {/* <img src={logo} style={{width: "120px", height: "100px"}}/> */}
-                      {/* <img src={require( '..' + asset.asset_image_path)} /> */}
-                      {/* <img src={require(`..${asset.asset_image_path}`).default} /> */}
-                      {/* <img src={require(`../assets/image/asset1.png`)} style={{width: "120px", height: "100px"}}/> */}
+                      <img src={require('../assets/image/' + asset.asset_image_path.split("/").slice(-1))} style={{width: "150px", height: "130px"}}/>
                     </div>
                   </div>
                 </div>
