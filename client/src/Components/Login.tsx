@@ -1,5 +1,5 @@
 // Login.tsx
-import React from "react";
+import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -9,7 +9,7 @@ import axios from "axios";
 import "../Style/Login.css";
 
 interface User {
-  id: number;
+  id: string;
   name: string;
   position: string;
   country: string;
@@ -30,6 +30,7 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
 
   const { data: usersData } = useQuery("users", fetchUsers);
+  const [user, setUser] = useState<User>();
 
   const {
     register,
@@ -45,8 +46,16 @@ const Login: React.FC = () => {
     );
 
     if (userExists) {
-      console.log("Login success");
-      navigate("/landing");
+      // Find the user and set it
+      const foundUser = usersData?.find(
+        (user: User) => user.id.toString() === data.userId
+      );
+      if (foundUser) {
+        setUser(foundUser);
+        // console.log("Login success");
+        // console.log("user : ", foundUser);
+        navigate("/landing", { state: { user: foundUser } });
+      }
     } else {
       console.log("User not found");
       navigate("/register");

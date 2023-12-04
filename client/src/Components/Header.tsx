@@ -19,6 +19,7 @@ const Header: React.FC = () => {
     "/machine": "Machine Utilization",
     "/login": "Home",
     "/": "Home",
+    "/chat": "Chat",
   };
 
   // Get the current pathname
