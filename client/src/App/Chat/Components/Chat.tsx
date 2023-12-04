@@ -8,6 +8,7 @@ interface Message {
   receiver: number;
   timestamp: Date;
   chat: string;
+  read: boolean;
 }
 
 const Chat: React.FC = () => {
@@ -55,6 +56,16 @@ const Chat: React.FC = () => {
 
   const handleReceiver = (userId: number) => {
     setReceiver(userId);
+
+    // Mark all messages in this conversation as read
+    setReceivedMessages((prevMessages) =>
+      prevMessages.map((message) =>
+        (message.sender === userId && message.receiver === senderUserID) ||
+        (message.sender === senderUserID && message.receiver === userId)
+          ? { ...message, read: true }
+          : message
+      )
+    );
   };
 
   const handleSend = () => {
@@ -71,6 +82,7 @@ const Chat: React.FC = () => {
         receiver: receiver,
         timestamp: new Date(),
         chat: chat,
+        read: false,
       };
 
       console.log("Compiled Message:", message);
@@ -121,31 +133,33 @@ const Chat: React.FC = () => {
         (message.sender === userId && message.receiver === senderUserID) ||
         (message.sender === senderUserID && message.receiver === userId)
     );
-
+  
     // Exclude messages sent by the active user from the sorting
     const filteredMessages = userMessages.filter(
       (message) => message.sender !== senderUserID
     );
-
+  
     const sortedMessages = filteredMessages.sort(
       (a, b) =>
         new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
     );
-
+  
+    const unreadMessages = sortedMessages.filter((message) => !message.read);
+  
     const latestMessage = sortedMessages.length > 0 ? sortedMessages[0] : null;
-
-    if (latestMessage) {
+  
+    if (latestMessage && unreadMessages.length != 0) {
       if (receiver === userId) {
         // Display the latest message only for the active user
         return (
           <div className="MessagePreviewContainer">{latestMessage.chat}</div>
         );
       } else {
-        // Display "Message Preview" and the number of messages received
+        // Display "Message Preview" and the number of unread messages received
         return (
           <div className="MessagePreviewContainer">
             {latestMessage.chat}
-            <div className="MessageCount">{`${filteredMessages.length}`}</div>
+            <div className="MessageCount">{`${unreadMessages.length}`}</div>
           </div>
         );
       }
@@ -154,6 +168,7 @@ const Chat: React.FC = () => {
       return <div className="MessagePreviewContainer">No Message</div>;
     }
   };
+  
 
   const getLatestMessageTimestamp = (userId: number) => {
     const userMessages = receivedMessages.filter(
