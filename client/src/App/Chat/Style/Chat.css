@@ -1,0 +1,105 @@
+.ChatBoxContainer {
+    margin: 30px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 80vh;
+    gap: 20px;
+}
+
+.UsersContainer {
+    border: 1px solid #ccc;
+    width: 30%;
+}
+
+.ActiveUser {
+    background-color: #ccc;
+}
+
+.User {
+    height: 70px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-weight: bold;
+}
+
+.ChatContainer {
+    border: 1px solid #ccc;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.Conversation {
+    height: 90%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.ChatField {
+    margin-top: auto;
+    display: flex;
+    height: 70px;
+}
+
+.ChatText {
+    width: 90%;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    font-size: 22px;
+}
+
+.SendButton {
+    width: 10%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    font-size: 22px;
+}
+
+.MessageContainer {
+    margin-bottom: 16px;
+}
+
+.SentMessage {
+    padding: 8px;
+    border: 1px solid #ccc;
+    width: fit-content;
+    align-self: flex-end;
+}
+
+.ReceivedMessage {
+    padding: 8px;
+    border: 1px solid #ccc;
+    width: fit-content;
+    align-self: flex-start;
+}
+
+.Timestamp {
+    font-size: 12px;
+    color: #666;
+}
+
+.Chat {
+    margin-top: 4px;
+}
+
+.PreviewMessage {
+    font-weight: normal;
+}
+
+.MessagePreviewContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 70px;
+    font-weight: normal;
+}
+
+.MessageCount {
+    border: 1px solid gray;
+    border-radius: 50%;
+    padding: 7px 10px;
+    align-self: flex-start;
+    font-weight: bold;
+}

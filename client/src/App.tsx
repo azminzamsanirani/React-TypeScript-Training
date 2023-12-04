@@ -8,6 +8,7 @@ import Login from './Components/Login';
 import CountriesTable from './App/CountryCurrency/components/CountriesTable';
 import CalendarComponent from './App/Calendar/Components/Calendar';
 import MachineUtilization from './App/MachineUtilization/Components/MachineUtilization';
+import Chat from './App/Chat/Components/Chat';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/calendar" element={<CalendarComponent/>} />
           <Route path="/machine" element={<MachineUtilization/>} />
           <Route path="/login" element={<Login />} />
+          <Route path="/chat" element={<Chat />} />
           <Route path="/" element={<Login />} />
         </Routes>
       </div>

@@ -1,9 +1,19 @@
 // Landing.tsx
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Landing: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const user = location.state && location.state.user;
+
+  // if (!user) {
+  //   // Handle the case where user data is not available
+  //   console.log("user not available")
+  // }
+  // else {
+  //   console.log("user: ", user)
+  // }
 
   const containerStyle: React.CSSProperties = {
     display: "flex",
@@ -43,6 +53,8 @@ const Landing: React.FC = () => {
       navigate("/calendar");
     } else if (content === "Machine Utilization") {
       navigate("/machine");
+    }  else if (content === "Chat") {
+      navigate("/chat", { state: { user } });
     }
   };
 
