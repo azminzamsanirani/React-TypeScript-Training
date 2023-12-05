@@ -19,11 +19,12 @@ import "../Style/DropDownFilter.css";
 import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import SkipNextIcon from "@mui/icons-material/SkipNext";
+import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
-import ReactPaginate from "react-paginate";
 
 interface SeriesData {
   color?: string;
@@ -53,8 +54,11 @@ const DropdownFilter: React.FC = () => {
     useState<WorkCenter | null>(null);
   const [selectedWorkStation, setSelectedWorkStation] =
     useState<WorkStation | null>(null);
-  const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [chartMax, setChartMax] = useState<number>();
+  const [chartMin, setChartMin] = useState<number>();
+  const [currentPage, setCurrentPage] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(4);
 
   const handleSitesLoad = (data: Site[]) => {
     setSites(data);
@@ -78,7 +82,7 @@ const DropdownFilter: React.FC = () => {
 
   const handleAssetsLoaded = (data: Asset[]) => {
     setAssets(data);
-    // console.log("assets: ", assets);
+    console.log("assets: ", assets);
   };
 
   const handleDateChange = (data: Date) => {
@@ -198,10 +202,22 @@ const DropdownFilter: React.FC = () => {
     const adjustedDate = new Date(newISODate);
     adjustedDate.setHours(adjustedDate.getHours() + 8);
 
+    // Set chartMin to 12:00 AM (midnight) of the selected date
+    const chartMinDate = adjustedDate;
+    chartMinDate.setHours(0, 0, 0, 0);
+    chartMinDate.setHours(chartMinDate.getHours() + 8);
+    setChartMin(chartMinDate.getTime());
+
+    // Set chartMax to 11:59 PM of the selected date
+    const chartMaxDate = adjustedDate;
+    chartMaxDate.setHours(23, 59, 59, 999);
+    chartMaxDate.setHours(chartMaxDate.getHours() + 8);
+    setChartMax(chartMaxDate.getTime());
+
     setISODate(adjustedDate.toISOString());
   }, [selectedDate]);
 
-  const itemsPerPage = 4;
+  // const itemsPerPage = 4;
 
   useEffect(() => {
     setTotalPages(CalculateTotalPages(assets, itemsPerPage));
@@ -214,10 +230,22 @@ const DropdownFilter: React.FC = () => {
 
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const subset = assets.slice(startIndex, endIndex);
+  const displayedAssets = assets.slice(startIndex, endIndex);
 
-  const handlePageChange = (selectedPage: { selected: number }) => {
-    setCurrentPage(selectedPage.selected);
+  const nextPage = () => {
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages - 1));
+  };
+
+  const prevPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
+  };
+
+  const firstPage = () => {
+    setCurrentPage(0);
+  };
+
+  const lastPage = () => {
+    setCurrentPage(totalPages - 1);
   };
 
   const handleSearch = () => {
@@ -232,7 +260,6 @@ const DropdownFilter: React.FC = () => {
   };
 
   const handleTransactionsLoaded = (data: Transaction[]) => {
-    // console.log("transaction: ", data);
     setTransactions(data);
   };
 
@@ -245,7 +272,6 @@ const DropdownFilter: React.FC = () => {
     // Log asset ID and its transactions
     // console.log("Transactions:", assetTransactions);
     // console.log(`Asset ID: ${assetId}`);
-    // console.log("Transactions:", assetTransactions);
 
     return assetTransactions;
   };
@@ -295,175 +321,6 @@ const DropdownFilter: React.FC = () => {
     return <div>{utilization.toFixed(2)}%</div>;
   };
 
-  //   const CompileChartData = (transactions: Transaction[]) => {
-  //     const getValueStatus = (value: number): string => {
-  //       switch (value) {
-  //         case 1:
-  //           return "running";
-  //         case 2:
-  //           return "idle";
-  //         case 3:
-  //           return "down";
-  //         case 4:
-  //           return "offline";
-  //         default:
-  //           return "";
-  //       }
-  //     };
-
-  //     const chartData = transactions.map((transaction) => {
-  //       return {
-  //         name: getValueStatus(transaction.value),
-  //         data: [
-  //           {
-  //             x: transaction.asset_id.toString(),
-  //             y: new Date(transaction.timestamp).getTime(),
-  //           },
-  //         ],
-  //       };
-  //     });
-
-  //     console.log("chartData", chartData);
-
-  //     return chartData;
-  //   };
-
-  //   const chartSeries = [
-  //     {
-  //       name: "George Washington",
-  //       data: [
-  //         {
-  //           x: "President",
-  //           y: [new Date(1789, 3, 30).getTime(), new Date(1797, 2, 4).getTime()],
-  //         },
-  //       ],
-  //     },
-  //     // John Adams
-  //     {
-  //       name: "John Adams",
-  //       data: [
-  //         {
-  //           x: "President",
-  //           y: [new Date(1797, 2, 4).getTime(), new Date(1801, 2, 4).getTime()],
-  //         },
-  //       ],
-  //     },
-  //     // Thomas Jefferson
-  //     {
-  //       name: "Thomas Jefferson",
-  //       data: [
-  //         {
-  //           x: "President",
-  //           y: [new Date(1801, 2, 4).getTime(), new Date(1809, 2, 4).getTime()],
-  //         },
-  //       ],
-  //     },
-  //   ];
-  //   const rawData: SeriesData[] = [
-  //     {
-  //       name: "running",
-  //       data: [
-  //         {
-  //           x: "5",
-  //           y: [
-  //             new Date("2022-02-20T00:00:00.000Z").getTime(),
-  //             new Date("2022-02-20T01:36:00.000Z").getTime(),
-  //           ],
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       name: "offline",
-  //       data: [
-  //         {
-  //           x: "5",
-  //           y: [
-  //             new Date("2022-02-20T01:36:00.000Z").getTime(),
-  //             new Date("2022-02-20T12:24:00.000Z").getTime(),
-  //           ],
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       name: "running",
-  //       data: [
-  //         {
-  //           x: "5",
-  //           y: [
-  //             new Date("2022-02-20T12:24:00.000Z").getTime(),
-  //             new Date("2022-02-20T14:59:59.999Z").getTime(),
-  //           ],
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       name: "idle",
-  //       data: [
-  //         {
-  //           x: "5",
-  //           y: [
-  //             new Date("2022-02-20T14:59:59.999Z").getTime(),
-  //             new Date("2022-02-20T17:59:59.999Z").getTime(),
-  //           ],
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       name: "down",
-  //       data: [
-  //         {
-  //           x: "5",
-  //           y: [
-  //             new Date("2022-02-20T17:59:59.999Z").getTime(),
-  //             new Date("2022-02-20T19:59:59.999Z").getTime(),
-  //           ],
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       name: "offline",
-  //       data: [
-  //         {
-  //           x: "5",
-  //           y: [
-  //             new Date("2022-02-20T20:59:59.999Z").getTime(),
-  //             new Date("2022-02-20T23:59:59.999Z").getTime(),
-  //           ],
-  //         },
-  //       ],
-  //     },
-  //   ];
-
-  //   const compileChartData = (rawData: SeriesData[]) => {
-  //     const uniqueColors: Record<string, string> = {
-  //       running: "#008FFB",
-  //       idle: "#00E396",
-  //       down: "#FEB019",
-  //       offline: "#FF4560",
-  //     };
-
-  //     const mergedData: Record<string, SeriesData> = {};
-
-  //     rawData.forEach((series) => {
-  //       const seriesName = series.name;
-
-  //       if (!mergedData[seriesName]) {
-  //         // If the series doesn't exist in mergedData, add it
-  //         mergedData[seriesName] = series;
-  //       } else {
-  //         // If the series already exists, concatenate the data
-  //         mergedData[seriesName].data = mergedData[seriesName].data.concat(
-  //           series.data
-  //         );
-  //       }
-
-  //       // Assign color to the series
-  //       mergedData[seriesName].color = uniqueColors[seriesName];
-  //     });
-
-  //     return Object.values(mergedData);
-  //   };
-
   const CompileChartData = (transactions: Transaction[]) => {
     const statusMap: Record<number, string> = {
       1: "running",
@@ -479,8 +336,10 @@ const DropdownFilter: React.FC = () => {
       const nextTransaction = transactions[index + 1];
 
       if (nextTransaction) {
-        const startDate = new Date(transaction.timestamp).getTime();
-        const endDate = new Date(nextTransaction.timestamp).getTime() - 1;
+        const startDate =
+          new Date(transaction.timestamp).getTime() - 3600 * 1000;
+        const endDate =
+          new Date(nextTransaction.timestamp).getTime() - 3600 * 1000;
 
         const data = {
           x: transaction.asset_id.toString(),
@@ -492,10 +351,11 @@ const DropdownFilter: React.FC = () => {
           data: [data],
         });
       } else {
-        const startDate = new Date(transaction.timestamp).getTime();
+        const startDate =
+          new Date(transaction.timestamp).getTime() - 3600 * 1000;
         let endDateTemp = new Date(transaction.timestamp);
-        endDateTemp.setUTCHours(23, 59, 59);
-        let endDate = endDateTemp.getTime();
+        endDateTemp.setUTCHours(24, 0, 0);
+        let endDate = endDateTemp.getTime() - 3600 * 1000;
 
         const data = {
           x: transaction.asset_id.toString(),
@@ -510,8 +370,8 @@ const DropdownFilter: React.FC = () => {
     });
 
     const uniqueColors: Record<string, string> = {
-      running: "#1C7D00",
-      idle: "#EAD315",
+      running: "#0daa9b",
+      idle: "#ffaa00",
       down: "#BC0000",
       offline: "#000000",
     };
@@ -558,6 +418,8 @@ const DropdownFilter: React.FC = () => {
     },
     xaxis: {
       type: "datetime",
+      min: chartMin,
+      max: chartMax,
     },
     yaxis: {
       show: false,
@@ -698,8 +560,8 @@ const DropdownFilter: React.FC = () => {
           </>
         )}
 
+        {/* Date Picker */}
         <div>
-          {/* Date Picker */}
           <DatePicker
             selected={selectedDate}
             onChange={(selected) => {
@@ -715,7 +577,7 @@ const DropdownFilter: React.FC = () => {
 
       {assets && (
         <div>
-          {subset.map((asset, index) => {
+          {displayedAssets.map((asset, index) => {
             // Get transactions for the current asset
             const assetTransactions = getTransactionsForAsset(asset.asset_id);
 
@@ -733,7 +595,11 @@ const DropdownFilter: React.FC = () => {
                       />
                     </div>
                     <div className="AssetImage">
-                      <img src={require('../assets/image/' + asset.asset_image_path.split("/").slice(-1))} style={{width: "150px", height: "130px"}}/>
+                      <img
+                        src={require("../assets/image/" +
+                          asset.asset_image_path.split("/").slice(-1))}
+                        style={{ width: "150px", height: "130px" }}
+                      />
                     </div>
                   </div>
                 </div>
@@ -741,12 +607,6 @@ const DropdownFilter: React.FC = () => {
                   <div className="AssetUtilization">
                     <div>Utilization</div>
                     {CalculateUtilization(assetTransactions)}
-                    {/* <div>
-                      {assetTransactions.map((transaction) => (
-                        <div key={transaction.transaction_id}>
-                        </div>
-                      ))}
-                    </div> */}
                   </div>
                   <div className="AssetChart">
                     <ReactApexChart
@@ -763,30 +623,47 @@ const DropdownFilter: React.FC = () => {
 
           {searchButton && (
             <>
-              <div className="PaginationContainer">
-                <ReactPaginate
-                  pageCount={totalPages}
-                  onPageChange={handlePageChange}
-                  previousLabel={
-                    <PlayArrowIcon style={{ transform: "rotate(180deg)" }} />
-                  }
-                  nextLabel={<PlayArrowIcon />}
-                  className="PaginationComponent"
-                />
-              </div>
               <div className="LegendContainer">
-                <li style={{color: "#000000"}}>
-                    Offline
-                </li>
-                <li style={{color: "#BC0000"}}>
-                    Down
-                </li>
-                <li style={{color: "#EAD315"}}>
-                    Idle
-                </li>
-                <li style={{color: "#1C7D00"}}>
-                    Running
-                </li>
+                <li style={{ color: "#000000" }}>Offline</li>
+                <li style={{ color: "#BC0000" }}>Down</li>
+                <li style={{ color: "#ffaa00" }}>Idle</li>
+                <li style={{ color: "#0daa9b" }}>Running</li>
+              </div>
+
+              <div className="PaginationContainer">
+                <button
+                  className="PageButton"
+                  onClick={firstPage}
+                  disabled={currentPage === 0}
+                >
+                  <SkipPreviousIcon style={{ color: "#00718f" }} />
+                </button>
+                <button
+                  className="PageButton"
+                  onClick={prevPage}
+                  disabled={currentPage === 0}
+                >
+                  <PlayArrowIcon
+                    style={{ transform: "rotate(180deg)", color: "#00718f" }}
+                  />
+                </button>
+                <div className="PaginationText">
+                  {currentPage + 1} / {totalPages}
+                </div>
+                <button
+                  className="PageButton"
+                  onClick={nextPage}
+                  disabled={currentPage === totalPages - 1}
+                >
+                  <PlayArrowIcon style={{ color: "#00718f" }} />
+                </button>
+                <button
+                  className="PageButton"
+                  onClick={lastPage}
+                  disabled={currentPage === totalPages - 1}
+                >
+                  <SkipNextIcon style={{ color: "#00718f" }} />
+                </button>
               </div>
             </>
           )}
