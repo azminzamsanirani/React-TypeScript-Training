@@ -40,6 +40,7 @@
     align-items: center;
     justify-content: center;
     color: white;
+    font-size: 25px;
 }
 
 .AssetImageContainer {
@@ -66,7 +67,7 @@
 
 .AssetUtilization {
     width: 10%;
-    background-color: #E2AF00;
+    background-color: #ffaa00;
     display: flex;
     justify-content: center;
     align-content: center;
@@ -77,11 +78,13 @@
 
 .AssetChart {
     width: 90%;
+    margin-right: 30px;
 }
 
 .PaginationContainer {
     display: flex;
     justify-content: center;
+    gap: 5px;
 }
 
 .PaginationComponent {
@@ -89,6 +92,21 @@
     gap: 20px;
     list-style-type: none;
     cursor: pointer;
+}
+
+.PageButton {
+    background-color: #fff;
+    border: 2px solid #00718f;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.PaginationText {
+    border: 2px solid #00718f;
+    padding: 0px 10px;
+    display: flex;
+    align-items: center;
+    color: #00718f;
 }
 
 .LegendContainer {
