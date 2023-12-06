@@ -82,7 +82,7 @@ const DropdownFilter: React.FC = () => {
 
   const handleAssetsLoaded = (data: Asset[]) => {
     setAssets(data);
-    console.log("assets: ", assets);
+    setSearchButton(false)
   };
 
   const handleDateChange = (data: Date) => {
@@ -257,6 +257,7 @@ const DropdownFilter: React.FC = () => {
     // console.log("Assets: ", assets);
     // console.log("totalpageinsearch: ", totalPages);
     setSearchButton(true);
+    setCurrentPage(0)
   };
 
   const handleTransactionsLoaded = (data: Transaction[]) => {
@@ -621,7 +622,7 @@ const DropdownFilter: React.FC = () => {
             );
           })}
 
-          {searchButton && (
+          {displayedAssets && displayedAssets.length > 0 && (
             <>
               <div className="LegendContainer">
                 <li style={{ color: "#000000" }}>Offline</li>
